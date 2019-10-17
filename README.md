@@ -40,6 +40,13 @@ Use this command to run test
 cd backend
 adonis test
 ```
+Use this command to create a report of coverage tests
+
+```bash
+yarn coverage
+```
+
+
 
 > [!NOTE]
 > When install a new adonis dependence add  `--yarn` parameter.
