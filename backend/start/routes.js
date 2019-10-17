@@ -22,4 +22,6 @@ Route.get('/', () => {
   };
 });
 
-Route.post('/users', 'UserController.store');
+Route.resource('users', 'UserController').middleware(['auth']);
+
+Route.post('/sessions', 'SessionController.store');
