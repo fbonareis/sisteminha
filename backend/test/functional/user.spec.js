@@ -63,3 +63,14 @@ test('it should an error when user doesnt exists', async ({ client }) => {
   response.assertStatus(404);
   response.assertJSONSubset({ error: 'user not found' });
 });
+
+test('it should get users list', async ({ client, assert }) => {
+  const users = await Factory.model('App/Models/User').createMany(10);
+
+  const response = await client
+    .get('/users')
+    .loginVia(users[0], 'jwt')
+    .end();
+
+  assert.equal(response.body.users.length, users.length);
+});

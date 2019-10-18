@@ -4,22 +4,22 @@
 const User = use('App/Models/User');
 
 class UserController {
-  async store({ request, response }) {
-    const { username, email, password } = request.only([
-      'username',
-      'email',
-      'password'
-    ]);
+  async index() {
+    const users = await User.all();
 
-    const user = await User.create({ username, email, password });
+    return { users };
+  }
+
+  async store({ request, response }) {
+    const data = request.only(['username', 'email', 'password']);
+
+    const user = await User.create({ ...data });
 
     return response.created(user);
   }
 
   async destroy({ params, response }) {
-    const { id } = params;
-
-    const user = await User.find(id);
+    const user = await User.find(params.id);
 
     if (user === null) {
       return response.status(404).send({ error: 'user not found' });

@@ -8,6 +8,6 @@ tmp
 #.env
 
 # The development sqlite file
-database/sisteminha.sqlite
+database/*.sqlite
 
 .nyc_output

@@ -16,13 +16,10 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.get('/', () => {
-  return {
-    message: 'I am provocative today'
-  };
-});
-
 Route.post('users', 'UserController.store');
-Route.delete('users/:id', 'UserController.destroy').middleware(['auth']);
-
 Route.post('/sessions', 'SessionController.store');
+
+Route.group(() => {
+  Route.get('users', 'UserController.index');
+  Route.delete('users/:id', 'UserController.destroy');
+}).middleware(['auth']);
