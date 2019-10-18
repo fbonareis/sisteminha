@@ -1,4 +1,3 @@
-'use strict';
 
 const { randomBytes } = require('crypto');
 const { promisify } = require('util');
@@ -20,7 +19,7 @@ class ForgotPasswordController {
 
     await user.tokens().create({
       token,
-      type: 'forgotpassword'
+      type: 'forgotpassword',
     });
 
     const resetPasswordUrl = `${Env.get('FRONT_URL')}/reset/?token=${token}`;
@@ -28,12 +27,12 @@ class ForgotPasswordController {
     await Mail.send(
       'emails.forgotpassword',
       { username: user.username, resetPasswordUrl },
-      message => {
+      (message) => {
         message
           .to(user.email)
           .from('noreply@sisteminha.com')
           .subject('Sisteminha - Recuperação de senha');
-      }
+      },
     );
   }
 }

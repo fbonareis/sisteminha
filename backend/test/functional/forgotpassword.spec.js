@@ -11,7 +11,7 @@ trait('DatabaseTransactions');
 
 test('it should send an email with reset password instructions', async ({
   assert,
-  client
+  client,
 }) => {
   Mail.fake();
 
@@ -31,7 +31,7 @@ test('it should send an email with reset password instructions', async ({
   assert.equal(recentEmail.message.to[0].address, email);
 
   assert.include(token.toJSON(), {
-    type: 'forgotpassword'
+    type: 'forgotpassword',
   });
 
   Mail.restore();
@@ -48,7 +48,7 @@ test('it should be able to reset password', async ({ assert, client }) => {
     .send({
       token: userToken.token,
       password: '123456',
-      password_confirmation: '123456'
+      password_confirmation: '123456',
     })
     .end();
 

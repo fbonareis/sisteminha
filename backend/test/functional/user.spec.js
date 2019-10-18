@@ -21,14 +21,14 @@ test('it should create a new user', async ({ assert, client }) => {
     .send({
       username: 'Guedes',
       email: 'guedes@acme.com',
-      password: '123456'
+      password: '123456',
     })
     .end();
 
   response.assertStatus(201);
   response.assertJSONSubset({
     username: 'Guedes',
-    email: 'guedes@acme.com'
+    email: 'guedes@acme.com',
   });
 
   const Hash = use('Hash');
@@ -56,7 +56,7 @@ test('it should an error when user doesnt exists', async ({ client }) => {
   const user = await Factory.model('App/Models/User').create();
 
   const response = await client
-    .delete(`/users/123`)
+    .delete('/users/123')
     .loginVia(user, 'jwt')
     .end();
 
