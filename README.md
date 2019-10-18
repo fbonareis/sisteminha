@@ -1,4 +1,5 @@
-# **Sisteminha** application
+# **'Sisteminha'** application
+Building a application using AdonisJS and TDD.
 
 
 ## Startup
