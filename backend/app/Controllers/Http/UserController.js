@@ -5,7 +5,9 @@ const User = use('App/Models/User');
 
 class UserController {
   async index() {
-    const users = await User.all();
+    const users = await User.query()
+      .setHidden(['password'])
+      .fetch();
 
     return { users };
   }
