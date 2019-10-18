@@ -22,6 +22,7 @@ Route.get('/', () => {
   };
 });
 
-Route.resource('users', 'UserController').middleware(['auth']);
+Route.post('users', 'UserController.store');
+Route.delete('users/:id', 'UserController.destroy').middleware(['auth']);
 
 Route.post('/sessions', 'SessionController.store');

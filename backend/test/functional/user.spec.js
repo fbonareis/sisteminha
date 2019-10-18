@@ -10,12 +10,14 @@ trait('Test/ApiClient');
 trait('DatabaseTransactions');
 trait('Auth/Client');
 
-test('it should create a new user', async ({ assert, client }) => {
-  const user = await Factory.model('App/Models/User').create();
+/**
+ * @TODO
+ * check if user has permission to create/delete users
+ */
 
+test('it should create a new user', async ({ assert, client }) => {
   const response = await client
     .post('/users')
-    .loginVia(user, 'jwt')
     .send({
       username: 'Guedes',
       email: 'guedes@acme.com',
@@ -23,6 +25,7 @@ test('it should create a new user', async ({ assert, client }) => {
     })
     .end();
 
+  response.assertStatus(201);
   response.assertJSONSubset({
     username: 'Guedes',
     email: 'guedes@acme.com'
@@ -47,4 +50,16 @@ test('it should delete a user', async ({ assert, client }) => {
   const userExists = await User.find(user.id);
 
   assert.isNull(userExists);
+});
+
+test('it should an error when user doesnt exists', async ({ client }) => {
+  const user = await Factory.model('App/Models/User').create();
+
+  const response = await client
+    .delete(`/users/123`)
+    .loginVia(user, 'jwt')
+    .end();
+
+  response.assertStatus(404);
+  response.assertJSONSubset({ error: 'user not found' });
 });
