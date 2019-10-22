@@ -1,5 +1,3 @@
-'use strict';
-
 /*
 |--------------------------------------------------------------------------
 | Http server
@@ -18,8 +16,10 @@
 */
 
 const { Ignitor } = require('@adonisjs/ignitor');
+const fold = require('@adonisjs/fold');
 
-new Ignitor(require('@adonisjs/fold'))
+new Ignitor(fold)
   .appRoot(__dirname)
   .fireHttpServer()
+  // eslint-disable-next-line no-console
   .catch(console.error);

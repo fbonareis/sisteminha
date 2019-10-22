@@ -1,13 +1,14 @@
 {
-  "name": "adonis-api-app",
-  "version": "4.1.0",
+  "name": "sisteminha",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "Sisteminha for API server with pre-configured JWT",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
     "test": "node ace test",
-    "coverage": "nyc adonis test"
+    "coverage": "nyc adonis test",
+    "lint": "eslint --fix . --ext .js"
   },
   "keywords": [
     "adonisjs",
