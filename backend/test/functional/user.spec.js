@@ -74,3 +74,30 @@ test('it should get users list', async ({ client, assert }) => {
 
   assert.equal(response.body.users.length, users.length);
 });
+
+test('it should update a user', async ({ assert, client }) => {
+  const user = await Factory.model('App/Models/User').create();
+
+  const payloadUserUpdate = {
+    username: 'Ex Guedes',
+    email: 'exguedes@acme.com',
+    password: '654321',
+  };
+
+  const response = await client
+    .put(`/users/${user.id}`)
+    .loginVia(user, 'jwt')
+    .send(payloadUserUpdate)
+    .end();
+
+  response.assertStatus(200);
+  response.assertJSONSubset({
+    username: 'Ex Guedes',
+    email: 'exguedes@acme.com',
+  });
+
+  const Hash = use('Hash');
+  const checkPasswordHash = await Hash.verify('654321', response.body.password);
+
+  assert.isTrue(checkPasswordHash);
+});

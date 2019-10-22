@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -23,4 +22,5 @@ Route.post('reset', 'ResetPasswordController.store');
 Route.group(() => {
   Route.get('users', 'UserController.index');
   Route.delete('users/:id', 'UserController.destroy');
+  Route.put('users/:id', 'UserController.update');
 }).middleware(['auth']);

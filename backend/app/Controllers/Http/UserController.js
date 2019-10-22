@@ -1,4 +1,3 @@
-
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User');
 
@@ -27,6 +26,22 @@ class UserController {
     }
 
     await user.delete();
+  }
+
+  async update({ params, request, response, auth }) {
+    const data = request.only(['username', 'email', 'password']);
+
+    if (auth.user.id !== Number(params.id)) {
+      return response.status(401).send({ error: 'unauthorized' });
+    }
+
+    const user = await User.findOrFail(params.id);
+
+    user.merge(data);
+
+    await user.save();
+
+    return user;
   }
 }
 
