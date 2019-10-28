@@ -29,8 +29,8 @@ class UserController {
   }
 
   async update({
-    params, request, response, auth,
-  }) {
+ params, request, response, auth 
+}) {
     const data = request.only(['username', 'email', 'password']);
 
     if (auth.user.id !== Number(params.id)) {
