@@ -28,9 +28,7 @@ class UserController {
     await user.delete();
   }
 
-  async update({
- params, request, response, auth 
-}) {
+  async update({ params, request, response, auth }) {
     const data = request.only(['username', 'email', 'password']);
 
     if (auth.user.id !== Number(params.id)) {

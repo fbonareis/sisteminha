@@ -2,8 +2,10 @@
 const Model = use('Model');
 
 class Role extends Model {
-  user() {
-    return this.hasMany('App/Models/User');
+  users() {
+    return this.belongsToMany('App/Models/User')
+      .pivotTable('user_roles')
+      .withTimestamps();
   }
 }
 

@@ -1,4 +1,3 @@
-
 /*
 |--------------------------------------------------------------------------
 | Factory
@@ -17,6 +16,11 @@ Factory.blueprint('App/Models/User', (faker, index, data = {}) => ({
   username: faker.username(),
   email: faker.email(),
   password: faker.string(),
+  ...data,
+}));
+
+Factory.blueprint('App/Models/Role', (faker, index, data = {}) => ({
+  name: faker.string({ length: 40 }),
   ...data,
 }));
 

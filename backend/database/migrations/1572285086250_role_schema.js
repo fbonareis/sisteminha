@@ -3,18 +3,12 @@ const Schema = use('Schema');
 
 class RoleSchema extends Schema {
   up() {
-    this.create('roles', (table) => {
+    this.create('roles', table => {
       table.increments();
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('users');
       table
         .string('name', 40)
         .notNullable()
-        .unique()
-        .index();
+        .unique();
       table.timestamps();
     });
   }
