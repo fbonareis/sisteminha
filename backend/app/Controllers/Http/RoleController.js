@@ -15,6 +15,15 @@ class RoleController {
 
     const user = await User.findBy('id', params.id);
 
+    const userRoles = await user
+      .roles()
+      .wherePivot('role_id', data.role_id)
+      .fetch();
+
+    if (userRoles.rows.length > 0) {
+      return response.status(404).send({ error: 'role exists for this user' });
+    }
+
     await user.roles().attach([data.role_id]);
 
     return response.status(201).send();
