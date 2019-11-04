@@ -1,9 +1,7 @@
-
 /** @type {import('@adonisjs/framework/src/Env')} */
 const Env = use('Env');
 
 module.exports = {
-
   /*
   |--------------------------------------------------------------------------
   | Application Name
@@ -15,7 +13,7 @@ module.exports = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
+  name: Env.get('APP_NAME', 'Sisteminha'),
 
   /*
   |--------------------------------------------------------------------------
@@ -80,7 +78,6 @@ module.exports = {
     |
     */
     jsonpCallback: 'callback',
-
 
     /*
     |--------------------------------------------------------------------------
