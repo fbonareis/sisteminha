@@ -1,9 +1,9 @@
-# **'Sisteminha'** application Frontend
+# **'Sisteminha'** application Backend
 
 Building a application using AdonisJS and TDD.
 
 ## Run
 
 ```bash
-yarn start
+adonis start --dev
 ```

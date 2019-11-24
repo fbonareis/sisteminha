@@ -1,6 +1,6 @@
 # **'Sisteminha'** application
-Building a application using AdonisJS and TDD.
 
+Building a application using AdonisJS and TDD.
 
 ## Startup
 
@@ -18,11 +18,10 @@ yarn install
 ```
 
 Create a `.env` file in `backend/.env`, and generate a `adonis app key`.
+
 ```bash
 adonis key:generate
 ```
-
-
 
 ## Start
 
@@ -41,13 +40,9 @@ Use this command to run test
 cd backend
 adonis test
 ```
+
 Use this command to create a report of coverage tests
 
 ```bash
 yarn coverage
 ```
-
-
-
-> [!NOTE]
-> When install a new adonis dependence add  `--yarn` parameter.
