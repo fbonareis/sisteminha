@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "./../../services/api";
 
 import * as Yup from "yup";
 
-import { Container, Form, FieldGroup, FieldLabel, Field } from "./styles";
+import {
+  Container,
+  Form,
+  FieldGroup,
+  FieldLabel,
+  Field,
+  Submit
+} from "./styles";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -15,18 +22,25 @@ const schema = Yup.object().shape({
 });
 
 function Login() {
+  const [error, setError] = useState("");
+
   async function handleSubmit(data) {
-    const response = await api.post("sessions", data);
-
-    const { token } = response.data.token;
-
-    console.log(token);
+    try {
+      setError("");
+      const response = await api.post("sessions", data);
+      const { token } = response.data.token;
+      console.log(token);
+    } catch (e) {
+      setError("ops, unable to login");
+    }
   }
 
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
         <h1>Login</h1>
+
+        <p>{error}</p>
 
         <FieldGroup>
           <FieldLabel htmlFor="email">E-mail</FieldLabel>
@@ -38,7 +52,7 @@ function Login() {
           <Field name="password" type="password" />
         </FieldGroup>
 
-        <button type="submit">Sign In</button>
+        <Submit>Sign In</Submit>
       </Form>
     </Container>
   );

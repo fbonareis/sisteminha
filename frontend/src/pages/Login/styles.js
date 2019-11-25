@@ -37,3 +37,7 @@ export const Field = styled(Input)`
   padding: 5px;
   font-size: 12px;
 `;
+
+export const Submit = styled.button.attrs({
+  type: "submit"
+})``;
