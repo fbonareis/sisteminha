@@ -21,7 +21,7 @@ const schema = Yup.object().shape({
     .required()
 });
 
-function Login() {
+function Login({ history }) {
   const [error, setError] = useState("");
 
   async function handleSubmit(data) {
@@ -29,7 +29,8 @@ function Login() {
       setError("");
       const response = await api.post("sessions", data);
       const { token } = response.data.token;
-      console.log(token);
+
+      history.push("/dashboard");
     } catch (e) {
       setError("ops, unable to login");
     }
