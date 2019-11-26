@@ -1,10 +1,16 @@
 import React from "react";
 
 import Router from "./routes";
-import Login from "./pages/Login";
+
+import { Provider } from "react-redux";
+import { Store } from "./store";
 
 function App() {
-  return <Router />;
+  return (
+    <Provider store={Store}>
+      <Router />
+    </Provider>
+  );
 }
 
 export default App;
