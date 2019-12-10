@@ -1,10 +1,17 @@
 class SessionController {
-  async store({ request, auth }) {
+  async store({ request, response, auth }) {
     const { email, password } = request.only(['email', 'password']);
 
-    const token = await auth.attempt(email, password);
+    try {
+      const token = await auth.attempt(email, password);
 
-    return { token };
+      return { token };
+    } catch (error) {
+      response.status(200).json({
+        status: 'error',
+        message: 'Invalid email/password',
+      });
+    }
   }
 }
 

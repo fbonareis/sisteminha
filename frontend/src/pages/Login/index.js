@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import api from "./../../services/api";
 
 import * as Yup from "yup";
@@ -9,7 +9,11 @@ import {
   FieldGroup,
   FieldLabel,
   Field,
+<<<<<<< HEAD
   Heading
+=======
+  Submit
+>>>>>>> 78a9a6bded3805a171c06c7d90495410e7e45ef6
 } from "./styles";
 
 const schema = Yup.object().shape({
@@ -21,19 +25,27 @@ const schema = Yup.object().shape({
     .required()
 });
 
-function Login() {
+function Login({ history }) {
+  const [error, setError] = useState("");
+
   async function handleSubmit(data) {
-    const response = await api.post("sessions", data);
+    try {
+      setError("");
+      const response = await api.post("sessions", data);
+      const { token } = response.data.token;
 
-    const { token } = response.data.token;
-
-    console.log(token);
+      history.push("/dashboard");
+    } catch (e) {
+      setError("ops, unable to login");
+    }
   }
 
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
         <Heading>Login</Heading>
+
+        <p>{error}</p>
 
         <FieldGroup>
           <FieldLabel htmlFor="email">E-mail</FieldLabel>
@@ -45,7 +57,7 @@ function Login() {
           <Field name="password" type="password" />
         </FieldGroup>
 
-        <button type="submit">Sign In</button>
+        <Submit>Sign In</Submit>
       </Form>
     </Container>
   );
