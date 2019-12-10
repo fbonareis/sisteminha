@@ -12,6 +12,8 @@ import {
   Submit
 } from "./styles";
 
+import { text } from "./../../components/stories/1-Button.stories.js";
+
 const schema = Yup.object().shape({
   email: Yup.string()
     .email("Custom invalid email message")
@@ -38,6 +40,8 @@ function Login({ history }) {
 
   return (
     <Container>
+      <text />
+
       <Form schema={schema} onSubmit={handleSubmit}>
         <h1>Login</h1>
 
