@@ -3,7 +3,14 @@ import api from "./../../services/api";
 
 import * as Yup from "yup";
 
-import { Container, Form, FieldGroup, FieldLabel, Field } from "./styles";
+import {
+  Container,
+  Form,
+  FieldGroup,
+  FieldLabel,
+  Field,
+  Heading
+} from "./styles";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -26,7 +33,7 @@ function Login() {
   return (
     <Container>
       <Form schema={schema} onSubmit={handleSubmit}>
-        <h1>Login</h1>
+        <Heading>Login</Heading>
 
         <FieldGroup>
           <FieldLabel htmlFor="email">E-mail</FieldLabel>

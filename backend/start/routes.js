@@ -14,16 +14,13 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.post('users', 'UserController.store');
 Route.post('sessions', 'SessionController.store');
 Route.post('forgot', 'ForgotPasswordController.store');
 Route.post('reset', 'ResetPasswordController.store');
 
 Route.group(() => {
-  Route.get('users', 'UserController.index');
-  Route.delete('users/:id', 'UserController.destroy');
-  Route.put('users/:id', 'UserController.update');
-
   Route.post('roles', 'RoleController.store');
   Route.post('users/:id/role', 'RoleController.assign');
+
+  Route.resource('users', 'UserController');
 }).middleware(['auth']);

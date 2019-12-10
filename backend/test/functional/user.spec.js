@@ -6,33 +6,32 @@ const Factory = use('Factory');
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const User = use('App/Models/User');
 
+const Hash = use('Hash');
+
 trait('Test/ApiClient');
 trait('DatabaseTransactions');
 trait('Auth/Client');
 
-/**
- * @TODO
- * check if user has permission to create/delete users
- */
-
 test('it should create a new user', async ({ assert, client }) => {
-  const response = await client
-    .post('/users')
-    .send({
-      username: 'Guedes',
-      email: 'guedes@acme.com',
-      password: '123456',
-    })
-    .end();
+  const user = await Factory.model('App/Models/User').create();
 
-  response.assertStatus(201);
-  response.assertJSONSubset({
+  const payload = {
     username: 'Guedes',
     email: 'guedes@acme.com',
-  });
+    password: '123456',
+  };
 
-  const Hash = use('Hash');
-  const checkPasswordHash = await Hash.verify('123456', response.body.password);
+  const response = await client
+    .post('/users')
+    .send(payload)
+    .loginVia(user, 'jwt')
+    .end();
+
+  const { username, email, password } = payload;
+
+  response.assertStatus(201).assertJSONSubset({ username, email });
+
+  const checkPasswordHash = await Hash.verify(password, response.body.password);
 
   assert.isTrue(checkPasswordHash);
 });
@@ -47,9 +46,9 @@ test('it should delete a user', async ({ assert, client }) => {
 
   response.assertStatus(204);
 
-  const userExists = await User.find(user.id);
+  const exists = await User.find(user.id);
 
-  assert.isNull(userExists);
+  assert.isNull(exists);
 });
 
 test('it should an error when user doesnt exists', async ({ client }) => {
@@ -78,7 +77,7 @@ test('it should get users list', async ({ client, assert }) => {
 test('it should update a user', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create();
 
-  const payloadUserUpdate = {
+  const payload = {
     username: 'Ex Guedes',
     email: 'exguedes@acme.com',
     password: '654321',
@@ -87,7 +86,7 @@ test('it should update a user', async ({ assert, client }) => {
   const response = await client
     .put(`/users/${user.id}`)
     .loginVia(user, 'jwt')
-    .send(payloadUserUpdate)
+    .send(payload)
     .end();
 
   response.assertStatus(200);
@@ -96,8 +95,10 @@ test('it should update a user', async ({ assert, client }) => {
     email: 'exguedes@acme.com',
   });
 
-  const Hash = use('Hash');
-  const checkPasswordHash = await Hash.verify('654321', response.body.password);
+  const checkPasswordHash = await Hash.verify(
+    payload.password,
+    response.body.password,
+  );
 
   assert.isTrue(checkPasswordHash);
 });

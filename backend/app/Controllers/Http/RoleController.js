@@ -4,8 +4,8 @@ const User = use('App/Models/User');
 
 class RoleController {
   async store({ request, response }) {
-    const data = request.only(['name']);
-    const role = await Role.create({ ...data });
+    const { name } = request.only(['name']);
+    const role = await Role.create({ name });
 
     return response.created(role);
   }
