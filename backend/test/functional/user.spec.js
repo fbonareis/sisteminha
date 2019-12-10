@@ -15,7 +15,6 @@ trait('Auth/Client');
 test('it should create a new user', async ({ assert, client }) => {
   const user = await Factory.model('App/Models/User').create();
 
-<<<<<<< HEAD
   const payload = {
     username: 'Guedes',
     email: 'guedes@acme.com',
@@ -26,16 +25,6 @@ test('it should create a new user', async ({ assert, client }) => {
     .post('/users')
     .send(payload)
     .loginVia(user, 'jwt')
-=======
-  const response = await client
-    .post('/users')
-    .loginVia(user, 'jwt')
-    .send({
-      username: 'Guedes',
-      email: 'guedes@acme.com',
-      password: '123456',
-    })
->>>>>>> 78a9a6bded3805a171c06c7d90495410e7e45ef6
     .end();
 
   const { username, email, password } = payload;

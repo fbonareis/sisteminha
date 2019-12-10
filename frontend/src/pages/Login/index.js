@@ -9,11 +9,7 @@ import {
   FieldGroup,
   FieldLabel,
   Field,
-<<<<<<< HEAD
   Heading
-=======
-  Submit
->>>>>>> 78a9a6bded3805a171c06c7d90495410e7e45ef6
 } from "./styles";
 
 const schema = Yup.object().shape({
