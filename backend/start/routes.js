@@ -19,10 +19,8 @@ Route.post('forgot', 'ForgotPasswordController.store');
 Route.post('reset', 'ResetPasswordController.store');
 
 Route.group(() => {
-  Route.get('users', 'UserController.index');
-  Route.post('users', 'UserController.store');
-  Route.put('users/:id', 'UserController.update');
-  Route.delete('users/:id', 'UserController.destroy');
   Route.post('roles', 'RoleController.store');
   Route.post('users/:id/role', 'RoleController.assign');
+
+  Route.resource('users', 'UserController');
 }).middleware(['auth']);

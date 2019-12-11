@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { Form as FormBase, Input } from "@rocketseat/unform";
+import tw from "tailwind.macro";
+
+export const Heading = styled.h1`
+  ${tw`font-bold text-4xl text-blue font-sans`}
+`;
 
 export const Container = styled.div`
   display: flex;

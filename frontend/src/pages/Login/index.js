@@ -9,7 +9,7 @@ import {
   FieldGroup,
   FieldLabel,
   Field,
-  Submit
+  Heading
 } from "./styles";
 
 import { text } from "./../../components/stories/1-Button.stories.js";
@@ -43,7 +43,7 @@ function Login({ history }) {
       <text />
 
       <Form schema={schema} onSubmit={handleSubmit}>
-        <h1>Login</h1>
+        <Heading>Login</Heading>
 
         <p>{error}</p>
 

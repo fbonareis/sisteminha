@@ -11,7 +11,7 @@ class ForgotPasswordController {
   async store({ request }) {
     const email = request.input('email');
 
-    const user = await User.findByOrFail('email', email);
+    const user = await User.findByOrFail({ email });
 
     const random = await promisify(randomBytes)(24);
     const token = random.toString('hex');
