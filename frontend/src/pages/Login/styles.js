@@ -1,48 +1,52 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
+
 import { Form as FormBase, Input } from "@rocketseat/unform";
 import tw from "tailwind.macro";
 
-export const Heading = styled.h1`
-  ${tw`font-bold text-4xl text-blue font-sans`}
+export const Container = styled.div`
+  ${tw`flex h-full flex-1 justify-center bg-gray-200`};
 `;
 
-export const Container = styled.div`
-  display: flex;
-  height: 100%;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+export const Content = styled.div`
+  ${tw`w-full mt-32 max-w-xs`};
 `;
 
 export const Form = styled(FormBase)`
-  background: lightgray;
-  flex: 1;
-  padding: 20px;
-  max-width: 300px;
+  ${tw`bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4`};
+`;
+
+export const Heading = styled.h1`
+  ${tw`text-4xl font-black mb-4`};
 `;
 
 export const FieldGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+  ${tw`mb-4`};
 
   span {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
+    ${tw`text-red-500 text-xs italic`}
   }
 `;
 
-export const FieldLabel = styled.label`
-  margin-bottom: 5px;
-  font-size: 14px;
-`;
-
 export const Field = styled(Input)`
-  padding: 5px;
-  font-size: 12px;
+  ${tw`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`};
 `;
 
-export const Submit = styled.button.attrs({
-  type: "submit"
-})``;
+export const FieldLabel = styled.label`
+  ${tw`block text-gray-700 text-sm font-bold mb-2`}
+`;
+
+export const Footer = styled.div`
+  ${tw`flex items-center justify-between`}
+`;
+
+export const ForgotPassword = styled.a`
+  ${tw`inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800`}
+`;
+
+export const Copyright = styled.p`
+  ${tw`text-center text-gray-500 text-xs`}
+`;
+
+export const Submit = styled.button.attrs({})`
+  ${tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+`;

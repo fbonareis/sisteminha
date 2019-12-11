@@ -5,14 +5,17 @@ import * as Yup from "yup";
 
 import {
   Container,
+  Content,
   Form,
   FieldGroup,
   FieldLabel,
   Field,
-  Heading
+  Heading,
+  Submit,
+  Footer,
+  ForgotPassword,
+  Copyright
 } from "./styles";
-
-import { text } from "./../../components/stories/1-Button.stories.js";
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -29,8 +32,8 @@ function Login({ history }) {
   async function handleSubmit(data) {
     try {
       setError("");
-      const response = await api.post("sessions", data);
-      const { token } = response.data.token;
+      //const response = await api.post("sessions", data);
+      //const { token } = response.data.token;
 
       history.push("/dashboard");
     } catch (e) {
@@ -40,25 +43,30 @@ function Login({ history }) {
 
   return (
     <Container>
-      <text />
+      <Content>
+        <Form schema={schema} onSubmit={handleSubmit}>
+          <Heading>Login</Heading>
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <Heading>Login</Heading>
+          <p>{error}</p>
 
-        <p>{error}</p>
+          <FieldGroup>
+            <FieldLabel htmlFor="email">E-mail</FieldLabel>
+            <Field name="email" type="email" placeholder="your@email.com" />
+          </FieldGroup>
 
-        <FieldGroup>
-          <FieldLabel htmlFor="email">E-mail</FieldLabel>
-          <Field name="email" type="email" />
-        </FieldGroup>
+          <FieldGroup>
+            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Field name="password" type="password" placeholder="mysecret" />
+          </FieldGroup>
 
-        <FieldGroup>
-          <FieldLabel htmlFor="password">Password</FieldLabel>
-          <Field name="password" type="password" />
-        </FieldGroup>
+          <Footer>
+            <Submit>Sign In</Submit>
+            <ForgotPassword href="#">Forgot Password?</ForgotPassword>
+          </Footer>
+        </Form>
 
-        <Submit>Sign In</Submit>
-      </Form>
+        <Copyright> &copy;2019 Acme Corp. All rights reserved.</Copyright>
+      </Content>
     </Container>
   );
 }
