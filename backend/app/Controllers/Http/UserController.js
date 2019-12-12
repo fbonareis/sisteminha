@@ -28,7 +28,7 @@ class UserController {
   async destroy({ params, response }) {
     const user = await User.find(params.id);
 
-    if (user === null) {
+    if (!user) {
       return response.status(404).send({ error: 'user not found' });
     }
 

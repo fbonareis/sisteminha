@@ -13,21 +13,16 @@ trait('DatabaseTransactions');
 trait('Auth/Client');
 
 test('it should create a new user', async ({ assert, client }) => {
-  const user = await Factory.model('App/Models/User').create();
-
-  const payload = {
-    username: 'Guedes',
-    email: 'guedes@acme.com',
-    password: '123456',
-  };
+  const auth = await Factory.model('App/Models/User').create();
+  const { username, email, password } = await Factory.model(
+    'App/Models/User',
+  ).make();
 
   const response = await client
     .post('/users')
-    .send(payload)
-    .loginVia(user, 'jwt')
+    .send({ username, email, password })
+    .loginVia(auth, 'jwt')
     .end();
-
-  const { username, email, password } = payload;
 
   response.assertStatus(201).assertJSONSubset({ username, email });
 
@@ -59,8 +54,7 @@ test('it should an error when user doesnt exists', async ({ client }) => {
     .loginVia(user, 'jwt')
     .end();
 
-  response.assertStatus(404);
-  response.assertJSONSubset({ error: 'user not found' });
+  response.assertStatus(404).assertJSONSubset({ error: 'user not found' });
 });
 
 test('it should get users list', async ({ client, assert }) => {
