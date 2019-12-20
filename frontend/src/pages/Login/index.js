@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import api from "./../../services/api";
+import React, { useState } from 'react';
 
-import * as Yup from "yup";
+import * as Yup from 'yup';
+
+import api from '~/services/api';
+import { authRequest, authRequestSuccess } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -14,30 +16,30 @@ import {
   Submit,
   Footer,
   ForgotPassword,
-  Copyright
-} from "./styles";
+  Copyright,
+} from './styles';
 
 const schema = Yup.object().shape({
   email: Yup.string()
-    .email("Custom invalid email message")
-    .required("Custom required message"),
+    .email('Custom invalid email message')
+    .required('Custom required message'),
   password: Yup.string()
     .min(6)
-    .required()
+    .required(),
 });
 
 function Login({ history }) {
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   async function handleSubmit(data) {
     try {
-      setError("");
-      //const response = await api.post("sessions", data);
-      //const { token } = response.data.token;
+      setError('');
+      const response = await api.post('sessions', data);
+      const { token } = response.data.token;
 
-      history.push("/dashboard");
+      history.push('/dashboard');
     } catch (e) {
-      setError("ops, unable to login");
+      setError('ops, unable to login');
     }
   }
 

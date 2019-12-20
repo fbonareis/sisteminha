@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react';
+import { Provider } from 'react-redux';
 
-import Router from "./routes";
-
-import { Provider } from "react-redux";
-import { Store } from "./store";
+import Router from './routes';
+import { Store } from './store';
 
 function App() {
   return (

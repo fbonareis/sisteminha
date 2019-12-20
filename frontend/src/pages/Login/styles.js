@@ -1,7 +1,6 @@
-import styled from "styled-components/macro";
-
-import { Form as FormBase, Input } from "@rocketseat/unform";
-import tw from "tailwind.macro";
+import { Form as FormBase, Input } from '@rocketseat/unform';
+import styled from 'styled-components/macro';
+import tw from 'tailwind.macro';
 
 export const Container = styled.div`
   ${tw`flex h-full flex-1 justify-center bg-gray-200`};

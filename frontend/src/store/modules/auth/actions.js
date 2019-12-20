@@ -1,11 +1,11 @@
-import { AUTH_REQUEST, AUTH_REQUEST_SUCCESS } from "./types";
+import { AUTH_REQUEST, AUTH_REQUEST_SUCCESS } from './types';
 
 export const authRequest = (email, password) => ({
   type: AUTH_REQUEST,
-  email: email,
-  password: password
+  email,
+  password,
 });
 
 export const authRequestSuccess = () => ({
-  type: AUTH_REQUEST_SUCCESS
+  type: AUTH_REQUEST_SUCCESS,
 });
