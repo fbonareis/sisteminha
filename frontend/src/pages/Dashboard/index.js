@@ -1,21 +1,21 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { AUTH_REQUEST } from '~/store/modules/auth/types';
+import { signOut } from '~/store/modules/auth/actions';
+
+import { Container } from './styles';
 
 export default function Dashboard() {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   return (
-    <h1>
-      Dashboard {auth.email}
-      <button
-        type="button"
-        onClick={() => dispatch({ type: AUTH_REQUEST, email: 'teste' })}
-      >
-        New value
+    <Container>
+      <h1>Dashboard</h1>
+
+      <button type="button" onClick={() => dispatch(signOut())}>
+        SignOut
       </button>
-    </h1>
+    </Container>
   );
 }

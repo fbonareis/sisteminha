@@ -1,25 +1,36 @@
-import { AUTH_REQUEST, AUTH_REQUEST_SUCCESS } from './types';
+import produce from 'immer';
 
-const initialState = {
-  email: '',
-  password: '',
-  loading: true,
+const INITIAL_STATE = {
+  token: null,
+  signed: false,
+  loading: false,
+  error: '',
 };
-export const authReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case AUTH_REQUEST:
-      return {
-        ...state,
-        email: action.email,
-        password: action.password,
-      };
 
-    case AUTH_REQUEST_SUCCESS:
-      return {
-        ...state,
-        loading: true,
-      };
-    default:
-      return state;
-  }
-};
+export default function auth(state = INITIAL_STATE, action) {
+  return produce(state, draft => {
+    switch (action.type) {
+      case '@auth/SIGN_IN_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+      case '@auth/SIGN_IN_SUCCESS': {
+        draft.token = action.payload.token;
+        draft.signed = true;
+        draft.loading = false;
+        break;
+      }
+      case '@auth/SIGN_FAILURE': {
+        draft.loading = false;
+        draft.error = action.payload.error;
+        break;
+      }
+      case '@auth/SIGN_OUT': {
+        draft.token = null;
+        draft.signed = false;
+        break;
+      }
+      default:
+    }
+  });
+}

@@ -1,11 +1,33 @@
-import { AUTH_REQUEST, AUTH_REQUEST_SUCCESS } from './types';
+export function signInRequest(email, password) {
+  return {
+    type: '@auth/SIGN_IN_REQUEST',
+    payload: { email, password },
+  };
+}
 
-export const authRequest = (email, password) => ({
-  type: AUTH_REQUEST,
-  email,
-  password,
-});
+export function signInSuccess(token, user) {
+  return {
+    type: '@auth/SIGN_IN_SUCCESS',
+    payload: { token, user },
+  };
+}
 
-export const authRequestSuccess = () => ({
-  type: AUTH_REQUEST_SUCCESS,
-});
+export function signUpRequest(name, email, password) {
+  return {
+    type: '@auth/SIGN_UP_REQUEST',
+    payload: { name, email, password },
+  };
+}
+
+export function signFailure(error) {
+  return {
+    type: '@auth/SIGN_FAILURE',
+    payload: { error },
+  };
+}
+
+export function signOut() {
+  return {
+    type: '@auth/SIGN_OUT',
+  };
+}

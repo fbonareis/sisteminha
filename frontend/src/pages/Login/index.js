@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as Yup from 'yup';
 
-import api from '~/services/api';
-import { authRequest, authRequestSuccess } from '~/store/modules/auth/actions';
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -28,19 +28,12 @@ const schema = Yup.object().shape({
     .required(),
 });
 
-function Login({ history }) {
-  const [error, setError] = useState('');
+function Login() {
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
 
-  async function handleSubmit(data) {
-    try {
-      setError('');
-      const response = await api.post('sessions', data);
-      const { token } = response.data.token;
-
-      history.push('/dashboard');
-    } catch (e) {
-      setError('ops, unable to login');
-    }
+  function handleSubmit({ email, password }) {
+    dispatch(signInRequest(email, password));
   }
 
   return (
@@ -49,7 +42,7 @@ function Login({ history }) {
         <Form schema={schema} onSubmit={handleSubmit}>
           <Heading>Login</Heading>
 
-          <p>{error}</p>
+          <p>{auth.error}</p>
 
           <FieldGroup>
             <FieldLabel htmlFor="email">E-mail</FieldLabel>
@@ -62,7 +55,7 @@ function Login({ history }) {
           </FieldGroup>
 
           <Footer>
-            <Submit>Sign In</Submit>
+            <Submit>{auth.loading ? 'Loading...' : 'Sign In'}</Submit>
             <ForgotPassword href="#">Forgot Password?</ForgotPassword>
           </Footer>
         </Form>
