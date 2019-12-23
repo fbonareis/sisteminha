@@ -1,50 +1,34 @@
 import produce from 'immer';
 
 const INITIAL_STATE = {
-  token: null,
-  signed: false,
   loading: false,
+  data: [],
   error: '',
 };
 
 export default (state = INITIAL_STATE, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case '@auth/SIGN_IN_REQUEST':
+      case '@users/FETCH_REQUEST': {
         return {
           ...draft,
           loading: true,
         };
-
-      case '@auth/SIGN_IN_SUCCESS':
+      }
+      case '@users/FETCH_SUCCESS': {
         return {
           ...draft,
           loading: false,
-          signed: true,
-          token: action.payload.token,
+          data: action.payload.users,
         };
-
-      case '@auth/SIGN_FAILURE':
+      }
+      case '@users/FETCH_FAILED': {
         return {
           ...draft,
           loading: false,
           error: action.payload.error,
         };
-
-      case '@auth/SIGN_OUT_REQUEST':
-        return {
-          ...draft,
-          loading: true,
-        };
-
-      case '@auth/SIGN_OUT_SUCCESS':
-        return {
-          ...draft,
-          loading: false,
-          signed: false,
-          token: null,
-        };
-
+      }
       default:
         return draft;
     }

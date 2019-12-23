@@ -1,8 +1,8 @@
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-export default reducers => {
-  const persistedReducer = persistReducer(
+export default reducers =>
+  persistReducer(
     {
       key: 'sisteminha',
       storage,
@@ -10,6 +10,3 @@ export default reducers => {
     },
     reducers
   );
-
-  return persistedReducer;
-};

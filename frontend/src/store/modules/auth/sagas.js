@@ -1,9 +1,8 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import { api, history } from '~/services';
-import { persistor } from '~/store';
 
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signFailure, signOutSuccess } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -13,10 +12,7 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data;
 
-    api.defaults.headers.Authorization = `Bearer ${token}`;
-
-    yield put(signInSuccess(token, user));
-
+    yield put(signInSuccess(token.token, user));
     history.push('/dashboard');
   } catch (err) {
     yield put(signFailure(err));
@@ -52,8 +48,8 @@ export function setToken({ payload }) {
   }
 }
 
-export function signOut() {
-  persistor.purge();
+export function* signOut() {
+  yield put(signOutSuccess());
   history.push('/');
 }
 
@@ -61,5 +57,5 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
-  takeLatest('@auth/SIGN_OUT', signOut),
+  takeLatest('@auth/SIGN_OUT_REQUEST', signOut),
 ]);

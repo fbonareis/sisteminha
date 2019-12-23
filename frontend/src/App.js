@@ -11,16 +11,12 @@ import { store, persistor } from './store';
 
 import './config/ReactotronConfig';
 
-function App() {
-  return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Router history={history}>
-          <Routes />
-        </Router>
-      </PersistGate>
-    </Provider>
-  );
-}
-
-export default App;
+export default () => (
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <Router history={history}>
+        <Routes />
+      </Router>
+    </PersistGate>
+  </Provider>
+);
