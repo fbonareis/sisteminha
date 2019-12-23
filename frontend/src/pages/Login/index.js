@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import * as Yup from 'yup';
 
+import { Input, Label } from '~/components/Form';
 import { signInRequest } from '~/store/modules/auth/actions';
 
 import {
@@ -10,8 +11,6 @@ import {
   Content,
   Form,
   FieldGroup,
-  FieldLabel,
-  Field,
   Heading,
   Submit,
   Footer,
@@ -45,13 +44,13 @@ function Login() {
           <p>{auth.error}</p>
 
           <FieldGroup>
-            <FieldLabel htmlFor="email">E-mail</FieldLabel>
-            <Field name="email" type="email" placeholder="your@email.com" />
+            <Label htmlFor="email">E-mail</Label>
+            <Input name="email" type="email" placeholder="your@email.com" />
           </FieldGroup>
 
           <FieldGroup>
-            <FieldLabel htmlFor="password">Password</FieldLabel>
-            <Field name="password" type="password" placeholder="mysecret" />
+            <Label htmlFor="password">Password</Label>
+            <Input name="password" type="password" placeholder="mysecret" />
           </FieldGroup>
 
           <Footer>
