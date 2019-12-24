@@ -26,12 +26,12 @@ class ForgotPasswordController {
     await Mail.send(
       'emails.forgotpassword',
       { username: user.username, resetPasswordUrl },
-      (message) => {
+      message => {
         message
           .to(user.email)
           .from('noreply@sisteminha.com')
           .subject('Sisteminha - Recuperação de senha');
-      },
+      }
     );
   }
 }
