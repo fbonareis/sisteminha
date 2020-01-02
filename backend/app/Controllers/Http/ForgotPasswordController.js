@@ -13,6 +13,8 @@ class ForgotPasswordController {
 
     const user = await User.findByOrFail({ email });
 
+    console.log(user);
+
     const random = await promisify(randomBytes)(24);
     const token = random.toString('hex');
 
@@ -22,6 +24,8 @@ class ForgotPasswordController {
     });
 
     const resetPasswordUrl = `${Env.get('FRONT_URL')}/reset/?token=${token}`;
+
+    console.log(resetPasswordUrl);
 
     await Mail.send(
       'emails.forgotpassword',
@@ -33,6 +37,8 @@ class ForgotPasswordController {
           .subject('Sisteminha - Recuperação de senha');
       }
     );
+
+    console.log('dasdasd');
   }
 }
 
