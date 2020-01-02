@@ -2,7 +2,12 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import { api, history } from '~/services';
 
-import { signInSuccess, signFailure, signOutSuccess } from './actions';
+import {
+  signInSuccess,
+  signFailure,
+  signOutSuccess,
+  forgotPasswordSuccess,
+} from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -53,9 +58,28 @@ export function* signOut() {
   history.push('/');
 }
 
+export function* forgotPassword({ payload }) {
+  try {
+    console.log(payload);
+
+    const response = yield call(api.post, 'forgot', payload);
+
+    console.log(response);
+
+    // if (response.data.status === 'error') throw response.data.message;
+
+    yield put(forgotPasswordSuccess());
+    history.push('/');
+  } catch (err) {
+    // yield put(signFailure(err));
+    console.log(err);
+  }
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
   takeLatest('@auth/SIGN_OUT_REQUEST', signOut),
+  takeLatest('@auth/FORGOT_PASSWORD_REQUEST', forgotPassword),
 ]);

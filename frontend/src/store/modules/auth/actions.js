@@ -37,3 +37,16 @@ export function signOutSuccess() {
     type: '@auth/SIGN_OUT_SUCCESS',
   };
 }
+
+export function forgotPasswordRequest(email) {
+  return {
+    type: '@auth/FORGOT_PASSWORD_REQUEST',
+    payload: { email },
+  };
+}
+
+export function forgotPasswordSuccess() {
+  return {
+    type: '@auth/FORGOT_PASSWORD_SUCCESS',
+  };
+}

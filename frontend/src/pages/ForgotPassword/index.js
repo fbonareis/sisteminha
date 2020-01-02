@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import { Input, Label } from '~/components/Form';
-import {} from '~/store/modules/auth/actions';
+import { forgotPasswordRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -26,9 +26,7 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
 
-  function handleSubmit({ email }) {
-    // dispatch(signInRequest(email, password));
-  }
+  const handleSubmit = ({ email }) => dispatch(forgotPasswordRequest(email));
 
   return (
     <Container>

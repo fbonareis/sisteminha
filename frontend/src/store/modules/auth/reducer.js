@@ -45,6 +45,17 @@ export default (state = INITIAL_STATE, action) =>
           token: null,
         };
 
+      case '@auth/FORGOT_PASSWORD_REQUEST':
+        return {
+          ...draft,
+          loading: true,
+        };
+
+      case '@auth/FORGOT_PASSWORD_SUCCESS':
+        return {
+          loading: false,
+        };
+
       default:
         return draft;
     }
