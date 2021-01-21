@@ -8,7 +8,7 @@
     "axios": "^0.19.2",
     "customize-cra": "^0.9.1",
     "history": "^4.10.1",
-    "immer": "^5.3.6",
+    "immer": "^8.0.1",
     "postcss-cli": "^7.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
